@@ -28,6 +28,8 @@ private:
 public:
     Problem(struct node bidsArray[], int numBids, int numCompanies, int numRegions);
 
+    State getStateFromBidNumbers(std::vector<int> bidNos);
+
     State generateRandomState();
 
     void setInitialState(State initialState);

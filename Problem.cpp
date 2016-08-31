@@ -62,6 +62,12 @@ int Problem::getStateConflicts(vector<int> bidNos) {
     return totalConflicts;
 }
 
+State Problem::getStateFromBidNumbers(vector<int> bidNos){
+    double totalCost = getStateCost(bidNos);
+    int totalConflicts = getStateConflicts(bidNos);
+    return State(bidNos, totalCost, totalConflicts);
+}
+
 State Problem::generateRandomState() {
     vector<int> bidNos;
     for (int i = 0; i < this->numCompanies; i++) {
@@ -69,20 +75,36 @@ State Problem::generateRandomState() {
         bidNos.push_back(r);
     }
 
-    double totalCost = getStateCost(bidNos);
-    int totalConflicts = getStateConflicts(bidNos);
-    return State(bidNos, totalCost, totalConflicts);
+    State state = getStateFromBidNumbers(bidNos);
+    return state;
 }
 
 void Problem::setInitialState(State initialState) {
     this->initialState = initialState;
 }
 
-std::vector<State> Problem::getNeighbours(State currentState) {
-    return std::vector<State>();
+vector<State> Problem::getNeighbours(State currentState) {
+    vector<int> bidNumbers = currentState.getBidNumbers();
+    vector<State> neighbours;
+
+    // Push all adjacent neighbours to vector
+    // TODO: find way to do operations without using O(B*C) space
+    for (int i = 0; i < this->numCompanies; ++i) {
+        int currentBid =bidNumbers[i];
+        for (int j = 0; j < this->maxBids[i]; ++j) {
+            if(j!=currentBid){
+                vector<int> newBidNumbers(bidNumbers);
+                newBidNumbers[i] = j;
+                State neighbourState = getStateFromBidNumbers(newBidNumbers);
+                neighbours.push_back(neighbourState);
+            }
+        }
+    }
+
+    return neighbours;
 }
 
-std::vector<State> Problem::fringeExpander(std::vector<State> fringe, int fringeSize, int expanderCode) {
+vector<State> Problem::fringeExpander(std::vector<State> fringe, int fringeSize, int expanderCode) {
     return vector<State>();
 }
 
