@@ -1,6 +1,6 @@
 #include "State.h"
 
-State::State(std::vector<int> bidNumbers, int cost, int numConflicts) {
+State::State(std::vector<int> bidNumbers, double cost, int numConflicts) {
 
 }
 
@@ -20,7 +20,7 @@ void State::setConflicts(int numConflicts) {
     this->numConflicts = numConflicts;
 }
 
-int State::getCost() {
+double State::getCost() {
     return this->cost;
 }
 

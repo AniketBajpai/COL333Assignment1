@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <queue>
+#include <random>
 #include "State.h"
 #include "node.h"
 
@@ -17,10 +18,14 @@ private:
     State initialState = State(std::vector<int>(), 0, 0);
     std::priority_queue<State, std::vector<State>, CompareState> validStateStore;
     std::vector<struct node> problemData[];
-    int maxbids[];
+    int maxBids[];
+    int numCompanies;
+    int numRegions;
+    double getStateCost(std::vector<int> bidNos);
+    int getStateConflicts(std::vector<int> bidNos);
 
 public:
-    Problem(struct node* bidsArray[], int numBids);
+    Problem(struct node* bidsArray[], int numBids, int numCompanies, int numRegions);
     State generateRandomState();
     void setInitialState(State initialState);
     std::vector<State> getNeighbours(State currentState);

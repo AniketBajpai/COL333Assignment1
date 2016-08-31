@@ -16,12 +16,12 @@ private:
     int numConflicts;
 
 public:
-    State(std::vector<int> bidNumbers, int cost, int numConflicts);
+    State(std::vector<int> bidNumbers, double cost, int numConflicts);
     std::vector<int> getBidNumbers();
     void setBidNumbers(std::vector<int> bidNumbers);
     int getConflicts();
     void setConflicts(int numConflicts);
-    int getCost();
+    double getCost();
 
 };
 
