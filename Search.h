@@ -8,8 +8,7 @@
 #include "Problem.h"
 #include "node.h"
 
-class Search
-{
+class Search {
     // search functions
 
     void localGreedySearch(Problem problem);
@@ -17,7 +16,8 @@ class Search
     // completeness checks
 
 
-    void generalSearch(Problem problem, int iterationLimit, int fringeSize, bool isRandomInitialize, int expanderCode, int completenessCode);
+    void generalSearch(Problem problem, int iterationLimit, int fringeSize, bool isRandomInitialize, int expanderCode,
+                       int completenessCode);
 };
 
 #endif //COL333ASSIGNMENT1_SEARCH_H
