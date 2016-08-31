@@ -1,7 +1,7 @@
 #include "Problem.h"
 using namespace std;
 
-Problem::Problem(struct node* bidsArray[], int numBids, int numCompanies, int numRegions) {
+Problem::Problem(struct node bidsArray[], int numBids, int numCompanies, int numRegions) {
     // get problem data and company size from bidsArray
 
     this->problemData = new vector<struct node>[numCompanies];
@@ -19,8 +19,8 @@ Problem::Problem(struct node* bidsArray[], int numBids, int numCompanies, int nu
 
     //Arrange input data
     for(int i=0;i<numBids;i++) {
-    	int cid = bidsArray[i]->cid;
-    	this->problemData[cid].push_back(bidsArray[i]);
+    	int cid = bidsArray[i].cid;
+        (this->problemData[cid]).push_back(bidsArray[i]);
     }
 
     //Initialize maxBids array for all companies
@@ -34,7 +34,7 @@ double Problem::getStateCost(vector<int> bidNos) {
 	double totalCost = 0;
 	for(int i=0;i<this->numCompanies;i++) {
 		int curBidNumber = bidNos[i];
-		double curcost = this->problemData[i][curBidNumber]->price;
+		double curcost = this->problemData[i][curBidNumber].price;
 		totalCost += curcost;
 	}
 	return totalCost;
@@ -46,8 +46,8 @@ int Problem::getStateConflicts(vector<int> bidNos) {
 	int totalConflicts = 0;
 	for(int i=0;i<this->numCompanies;i++) {
 		int curBidNumber = bidNos[i];
-		int curRegions[] = this->problemData[i][curBidNumber]->region;
-		int curRegionsSize = this->problemData[i][curBidNumber]->norc;
+		int* curRegions = this->problemData[i][curBidNumber].region;
+		int curRegionsSize = this->problemData[i][curBidNumber].norc;
 		for(int j=0;j<curRegionsSize;j++) {
 			if(conflictArray[curRegions[j]] != 0) {
 				totalConflicts++;

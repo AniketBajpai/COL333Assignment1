@@ -17,15 +17,15 @@ private:
     State state = State(std::vector<int>(), 0, 0);
     State initialState = State(std::vector<int>(), 0, 0);
     std::priority_queue<State, std::vector<State>, CompareState> validStateStore;
-    std::vector<struct node> problemData[];
-    int maxBids[];
+    std::vector<struct node>* problemData;
+    int* maxBids;
     int numCompanies;
     int numRegions;
     double getStateCost(std::vector<int> bidNos);
     int getStateConflicts(std::vector<int> bidNos);
 
 public:
-    Problem(struct node* bidsArray[], int numBids, int numCompanies, int numRegions);
+    Problem(struct node bidsArray[], int numBids, int numCompanies, int numRegions);
     State generateRandomState();
     void setInitialState(State initialState);
     std::vector<State> getNeighbours(State currentState);
