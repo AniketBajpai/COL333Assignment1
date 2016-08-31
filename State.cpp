@@ -1,7 +1,9 @@
 #include "State.h"
 
 State::State(std::vector<int> bidNumbers, double cost, int numConflicts) {
-
+    this->bidNumbers = bidNumbers;
+    this->cost = cost;
+    this->numConflicts = numConflicts;
 }
 
 std::vector<int> State::getBidNumbers() {
@@ -9,7 +11,7 @@ std::vector<int> State::getBidNumbers() {
 }
 
 void State::setBidNumbers(std::vector<int> bidNumbers) {
-
+    this->bidNumbers = bidNumbers;
 }
 
 int State::getConflicts() {

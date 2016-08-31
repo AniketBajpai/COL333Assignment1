@@ -75,7 +75,7 @@ State Problem::generateRandomState() {
 }
 
 void Problem::setInitialState(State initialState) {
-
+    this->initialState = initialState;
 }
 
 std::vector<State> Problem::getNeighbours(State currentState) {

@@ -11,7 +11,7 @@
 class State {
 private:
     std::vector<int> bidNumbers;
-    int cost;
+    double cost;
     int numConflicts;
 
 public:
