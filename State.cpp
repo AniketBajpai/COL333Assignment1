@@ -22,8 +22,16 @@ void State::setConflicts(int numConflicts) {
     this->numConflicts = numConflicts;
 }
 
-double State::getCost() {
+double State::getCost() const {
     return this->cost;
+}
+
+bool State::isValid(){
+    return (this->getConflicts() == 0);
+}
+
+bool State::operator==(const State& state){
+    return (this->cost == state.getCost());
 }
 
 

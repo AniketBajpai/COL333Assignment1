@@ -25,14 +25,17 @@ public:
 
     void setConflicts(int numConflicts);
 
-    double getCost();
+    double getCost() const;
 
+    bool isValid();
+
+    bool operator==(const State& state);
 };
 
 class CompareState {
 public:
     bool operator()(State state1, State state2) {
-        return state1.getCost() < state2.getCost();
+        return (state1.getCost() < state2.getCost());
     }
 };
 

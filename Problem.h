@@ -5,11 +5,15 @@
 #ifndef COL333ASSIGNMENT1_PROBLEM_H
 #define COL333ASSIGNMENT1_PROBLEM_H
 
+#include <iostream>
 #include <vector>
 #include <queue>
 #include <random>
+#include <algorithm>
 #include "State.h"
 #include "node.h"
+
+typedef std::priority_queue<State, std::vector<State>, CompareState> vss;
 
 class Problem {
 private:
@@ -20,13 +24,21 @@ private:
     int *maxBids;
     int numCompanies;
     int numRegions;
+    int validStoreSize;
 
     double getStateCost(std::vector<int> bidNos);
 
     int getStateConflicts(std::vector<int> bidNos);
 
+
 public:
     Problem(struct node bidsArray[], int numBids, int numCompanies, int numRegions);
+
+    State getInitialState();
+
+    vss getValidStore();
+
+    void clearValidStore();
 
     State getStateFromBidNumbers(std::vector<int> bidNos);
 
@@ -39,6 +51,8 @@ public:
     std::vector<State> fringeExpander(std::vector<State> fringe, int fringeSize, int expanderCode);
 
     // expanders
+
+    std::vector<State> localGreedyExpander(std::vector<State> fringe, int fringeSize);
 };
 
 #endif //COL333ASSIGNMENT1_PROBLEM_H
