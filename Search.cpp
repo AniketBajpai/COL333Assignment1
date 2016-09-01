@@ -43,15 +43,17 @@ bool Search::isCompleteLocalMaximum(std::vector<State> oldfringe, std::vector<St
 // General algorithm at core of all search algorithms
 vss Search::generalSearch(Problem *problem, int iterationLimit, int fringeSize, bool isRandomInitialize,
                           int expanderCode, int completenessCode) {
-
+    cout<<"Entered general search"<<endl;
     vector<State> fringe;
     vector<State> newfringe;
     problem->clearValidStore();
 
     // Initialize fringe
     if (isRandomInitialize) {
+        cout<<"Random initialization"<<endl;
         for (int i = 0; i < fringeSize; ++i) {
             State randomState = problem->generateRandomState();
+            cout<<"State: "<<problem->getStringFromState(randomState)<<endl;
             fringe.push_back(randomState);
         }
     }
@@ -62,12 +64,14 @@ vss Search::generalSearch(Problem *problem, int iterationLimit, int fringeSize, 
             fringe.push_back(randomState);
         }
     }
+    cout<<"Initialized fringe"<<endl;
 
     int iterationCount = 0;
     bool run = true;
 
     while (run) {
         newfringe = problem->fringeExpander(fringe, fringeSize, 0);
+        cout<<"Computed new fringe"<<endl;
 
         // Check if search is complete
         if (iterationCount >= iterationLimit) {

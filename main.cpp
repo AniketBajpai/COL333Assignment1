@@ -135,6 +135,11 @@ int main()
 
 	cout<<"Initializing problem"<<endl;
 	Problem *problem = new Problem(tob, nob, noc, nor);
+	int* maxBids = problem->getMaxBids();
+	cout<<"Number of bids by companies are: "<<endl;
+	for (int i = 0; i < noc; ++i) {
+		cout<<i<<" : "<<maxBids[i]<<endl;
+	}
 	cout<<"Starting search"<<endl;
 	Search::localGreedySearch(problem, 1);
 

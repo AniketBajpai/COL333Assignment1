@@ -36,6 +36,8 @@ public:
 
     State getInitialState();
 
+    int* getMaxBids();
+
     vss getValidStore();
 
     void clearValidStore();
