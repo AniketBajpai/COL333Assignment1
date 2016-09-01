@@ -36,11 +36,11 @@ State Problem::getInitialState() {
     return this->initialState;
 }
 
-vss Problem::getValidStore(){
+vss Problem::getValidStore() {
     return this->validStateStore;
 }
 
-void Problem::clearValidStore(){
+void Problem::clearValidStore() {
     this->validStateStore = vss();
 }
 
@@ -75,7 +75,7 @@ int Problem::getStateConflicts(vector<int> bidNos) {
     return totalConflicts;
 }
 
-State Problem::getStateFromBidNumbers(vector<int> bidNos){
+State Problem::getStateFromBidNumbers(vector<int> bidNos) {
     double totalCost = getStateCost(bidNos);
     int totalConflicts = getStateConflicts(bidNos);
     return State(bidNos, totalCost, totalConflicts);
@@ -103,9 +103,9 @@ vector<State> Problem::getNeighbours(State currentState) {
     // Push all adjacent neighbours to vector
     // TODO: find way to do operations without using O(B*C) space
     for (int i = 0; i < this->numCompanies; ++i) {
-        int currentBid =bidNumbers[i];
+        int currentBid = bidNumbers[i];
         for (int j = 0; j < this->maxBids[i]; ++j) {
-            if(j!=currentBid){
+            if (j != currentBid) {
                 vector<int> newBidNumbers(bidNumbers);
                 newBidNumbers[i] = j;
                 State neighbourState = getStateFromBidNumbers(newBidNumbers);
@@ -117,11 +117,11 @@ vector<State> Problem::getNeighbours(State currentState) {
     return neighbours;
 }
 
-bool compareStateDesc(State state1, State state2){
+bool compareStateDesc(State state1, State state2) {
     return state1.getCost() > state2.getCost();
 }
 
-vector<State> Problem::localGreedyExpander(vector<State> fringe, int fringeSize){
+vector<State> Problem::localGreedyExpander(vector<State> fringe, int fringeSize) {
     sort(fringe.begin(), fringe.end(), compareStateDesc);
     // Resize fringe greedily
     fringe.resize(fringeSize, generateRandomState());   // fill fringe with random states if size less than fringeSize
@@ -134,18 +134,18 @@ vector<State> Problem::fringeExpander(vector<State> fringe, int fringeSize, int 
 
     // TODO: improve method to form new fringe without using enormous space each time
     // Algorithm has much less running time for fringeSize=1 -> Re-implement
-    for (auto it=fringe.begin(); it<fringe.end(); it++){
+    for (auto it = fringe.begin(); it < fringe.end(); it++) {
         vector<State> neighbours = getNeighbours(*it);
         newfringe.insert(newfringe.end(), neighbours.begin(), neighbours.end());
     }
 
     // Update validStateStore if valid state found among neighbours
-    for (auto it=newfringe.begin(); it<newfringe.end(); it++){
+    for (auto it = newfringe.begin(); it < newfringe.end(); it++) {
         State state = *it;
-        if(state.isValid()){
+        if (state.isValid()) {
             validStateStore.push(state);
         }
-        if(validStateStore.size() > validStoreSize){
+        if (validStateStore.size() > validStoreSize) {
             validStateStore.pop();
         }
     }
@@ -156,7 +156,7 @@ vector<State> Problem::fringeExpander(vector<State> fringe, int fringeSize, int 
      * 0 : greedy expander
      */
     vector<State> expandedfringe;
-    switch(expanderCode){
+    switch (expanderCode) {
         case 0:
             expandedfringe = localGreedyExpander(newfringe, fringeSize);
             break;

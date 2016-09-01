@@ -21,7 +21,7 @@ class Search {
 
 
     vss generalSearch(Problem problem, int iterationLimit, int fringeSize, bool isRandomInitialize, int expanderCode,
-                       int completenessCode);
+                      int completenessCode);
 };
 
 #endif //COL333ASSIGNMENT1_SEARCH_H

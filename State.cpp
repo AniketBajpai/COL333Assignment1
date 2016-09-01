@@ -26,11 +26,11 @@ double State::getCost() const {
     return this->cost;
 }
 
-bool State::isValid(){
+bool State::isValid() {
     return (this->getConflicts() == 0);
 }
 
-bool State::operator==(const State& state){
+bool State::operator==(const State &state) {
     return (this->cost == state.getCost());
 }
 
