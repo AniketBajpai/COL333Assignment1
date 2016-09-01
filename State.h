@@ -21,11 +21,13 @@ public:
 
     void setBidNumbers(std::vector<int> bidNumbers);
 
-    int getConflicts();
+    int getConflicts() const;
 
     void setConflicts(int numConflicts);
 
     double getCost() const;
+
+    double getFitness() const;
 
     bool isValid();
 
@@ -35,7 +37,7 @@ public:
 class CompareState {
 public:
     bool operator()(State state1, State state2) {
-        return (state1.getCost() < state2.getCost());
+        return (state1.getFitness() < state2.getFitness());
     }
 };
 

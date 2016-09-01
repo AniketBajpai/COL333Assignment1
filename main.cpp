@@ -6,6 +6,8 @@
 #include <cstdio>
 
 #include "node.h"
+#include "Problem.h"
+#include "Search.h"
 
 #define max 10000
 
@@ -129,6 +131,12 @@ bool checkReg(int bidno)
 int main()
 {
 	readFile();
-	getRandom();
+//	getRandom();
+
+	cout<<"Initializing problem"<<endl;
+	Problem *problem = new Problem(tob, nob, noc, nor);
+	cout<<"Starting search"<<endl;
+	Search::localGreedySearch(problem, 1);
+
 	return 0;
 }

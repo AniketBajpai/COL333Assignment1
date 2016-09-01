@@ -118,7 +118,7 @@ vector<State> Problem::getNeighbours(State currentState) {
 }
 
 bool compareStateDesc(State state1, State state2) {
-    return state1.getCost() > state2.getCost();
+    return state1.getFitness() > state2.getFitness();
 }
 
 vector<State> Problem::localGreedyExpander(vector<State> fringe, int fringeSize) {
@@ -127,6 +127,27 @@ vector<State> Problem::localGreedyExpander(vector<State> fringe, int fringeSize)
     fringe.resize(fringeSize, generateRandomState());   // fill fringe with random states if size less than fringeSize
     return fringe;
 }
+
+std::string Problem::getStringFromState(State state) {
+    string stateString = "{";
+    vector<int> bidNos = state.getBidNumbers();
+    for (int i = 0; i < bidNos.size(); ++i) {
+        int curBidNumber = bidNos[i];
+        if(curBidNumber>0){
+            string currString = "[";
+            int *curRegions = this->problemData[i][curBidNumber].region;
+            int curRegionsSize = this->problemData[i][curBidNumber].norc;
+            for (int j = 0; j < curRegionsSize; j++) {
+                currString += (char)(curRegions[j]+48);
+            }
+            currString.replace(currString.length()-1, 1, "]");
+            stateString.append("(").append(1, (char)(i+48)).append(",").append(currString).append(")");
+        }
+    }
+    stateString.append("}");
+    return stateString;
+}
+
 
 vector<State> Problem::fringeExpander(vector<State> fringe, int fringeSize, int expanderCode) {
     // Initialize new fringe with old fringe

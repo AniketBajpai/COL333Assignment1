@@ -40,6 +40,8 @@ public:
 
     void clearValidStore();
 
+    std::string getStringFromState(State state);
+
     State getStateFromBidNumbers(std::vector<int> bidNos);
 
     State generateRandomState();

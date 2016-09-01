@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void Search::localGreedySearch(Problem problem, int numTries) {
+void Search::localGreedySearch(Problem* problem, int numTries) {
     int iterationLimit = 10000;
     int fringeSize = 1;
     bool randomInitialize = true;
@@ -24,6 +24,15 @@ void Search::localGreedySearch(Problem problem, int numTries) {
             }
         }
     }
+
+    if(GlobalValidStates.size()>0){
+        State bestState = GlobalValidStates.top();
+        string bestStateString = problem->getStringFromState(bestState);
+        cout<<bestStateString<<endl;
+    }
+    else {
+        cout<<"No valid states found"<<endl;
+    }
 }
 
 bool Search::isCompleteLocalMaximum(std::vector<State> oldfringe, std::vector<State> newfringe) {
@@ -32,24 +41,24 @@ bool Search::isCompleteLocalMaximum(std::vector<State> oldfringe, std::vector<St
 }
 
 // General algorithm at core of all search algorithms
-vss Search::generalSearch(Problem problem, int iterationLimit, int fringeSize, bool isRandomInitialize,
+vss Search::generalSearch(Problem *problem, int iterationLimit, int fringeSize, bool isRandomInitialize,
                           int expanderCode, int completenessCode) {
 
     vector<State> fringe;
     vector<State> newfringe;
-    problem.clearValidStore();
+    problem->clearValidStore();
 
     // Initialize fringe
     if (isRandomInitialize) {
         for (int i = 0; i < fringeSize; ++i) {
-            State randomState = problem.generateRandomState();
+            State randomState = problem->generateRandomState();
             fringe.push_back(randomState);
         }
     }
     else {
-        fringe.push_back(problem.getInitialState());
+        fringe.push_back(problem->getInitialState());
         for (int i = 0; i < fringeSize - 1; ++i) {
-            State randomState = problem.generateRandomState();
+            State randomState = problem->generateRandomState();
             fringe.push_back(randomState);
         }
     }
@@ -58,7 +67,7 @@ vss Search::generalSearch(Problem problem, int iterationLimit, int fringeSize, b
     bool run = true;
 
     while (run) {
-        newfringe = problem.fringeExpander(fringe, fringeSize, 0);
+        newfringe = problem->fringeExpander(fringe, fringeSize, 0);
 
         // Check if search is complete
         if (iterationCount >= iterationLimit) {
@@ -66,6 +75,10 @@ vss Search::generalSearch(Problem problem, int iterationLimit, int fringeSize, b
             cout << "Exceeded max iterations" << endl;
             break;
         }
+
+        cout<<"Iteration: "<<iterationCount<<endl;
+        cout<<"Best state: "<<problem->getStringFromState(newfringe[0])<<endl;
+
         bool isComplete;
 
         /*
@@ -89,7 +102,7 @@ vss Search::generalSearch(Problem problem, int iterationLimit, int fringeSize, b
         iterationCount++;
     }
 
-    return problem.getValidStore();
+    return problem->getValidStore();
 
 }
 
