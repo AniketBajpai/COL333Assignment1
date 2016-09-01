@@ -31,7 +31,7 @@ public:
 
     bool isValid();
 
-    bool operator==(const State &state);
+    bool operator==(const State &state) const;
 };
 
 class CompareState {
