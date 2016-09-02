@@ -28,7 +28,7 @@ Problem::Problem(struct node bidsArray[], int numBids, int numCompanies, int num
 
     //Initialize maxBids array for all companies
     for (int i = 0; i < numCompanies; i++) {
-        this->maxBids[i] = (this->problemData[i]).size() + 1;
+        this->maxBids[i] = (this->problemData[i]).size();
     }
 }
 
@@ -84,7 +84,7 @@ State Problem::getStateFromBidNumbers(vector<int> bidNos) {
 State Problem::generateRandomState() {
     vector<int> bidNos;
     for (int i = 0; i < this->numCompanies; i++) {
-        int r = (rand()) % (this->maxBids[i] + 1);
+        int r = (rand()) % (this->maxBids[i]);
         bidNos.push_back(r);
     }
 
