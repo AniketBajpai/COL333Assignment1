@@ -28,7 +28,7 @@ Problem::Problem(struct node bidsArray[], int numBids, int numCompanies, int num
 
     //Initialize maxBids array for all companies
     for (int i = 0; i < numCompanies; i++) {
-        this->maxBids[i] = (this->problemData[i]).size() + 1;
+        this->maxBids[i] = (this->problemData[i]).size();
     }
 }
 
@@ -93,7 +93,7 @@ State Problem::getStateFromBidNumbers(vector<int> bidNos) {
 State Problem::generateRandomState() {
     vector<int> bidNos;
     for (int i = 0; i < this->numCompanies; i++) {
-        int r = (rand()) % (this->maxBids[i] + 1);
+        int r = (rand()) % (this->maxBids[i]);
         bidNos.push_back(r);
     }
 
@@ -149,10 +149,10 @@ std::string Problem::getStringFromState(State state) {
             int *curRegions = this->problemData[i][curBidNumber].region;
             int curRegionsSize = this->problemData[i][curBidNumber].norc;
             for (int j = 0; j < curRegionsSize; j++) {
-                currString += (char)(curRegions[j]+48);
+                currString.append(to_string(curRegions[j]) + " ");
             }
             currString.replace(currString.length()-1, 1, "]");
-            stateString.append("(").append(1, (char)(i+48)).append(",").append(currString).append(")");
+            stateString.append("(").append(to_string(i)).append(",").append(" "+to_string(curBidNumber)+": ").append(currString).append(")");
         }
     }
     stateString.append("}");

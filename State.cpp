@@ -37,7 +37,7 @@ bool State::isValid() {
     return (this->getConflicts() == 0);
 }
 
-bool State::operator==(const State &state) {
+bool State::operator==(const State &state) const {
     return (this->getFitness() == state.getFitness());
 }
 
