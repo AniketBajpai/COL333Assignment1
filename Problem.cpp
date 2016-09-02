@@ -138,10 +138,10 @@ std::string Problem::getStringFromState(State state) {
             int *curRegions = this->problemData[i][curBidNumber].region;
             int curRegionsSize = this->problemData[i][curBidNumber].norc;
             for (int j = 0; j < curRegionsSize; j++) {
-                currString += (char)(curRegions[j]+48);
+                currString.append(to_string(curRegions[j]) + " ");
             }
             currString.replace(currString.length()-1, 1, "]");
-            stateString.append("(").append(1, (char)(i+48)).append(",").append(currString).append(")");
+            stateString.append("(").append(to_string(i)).append(",").append(" "+to_string(curBidNumber)+": ").append(currString).append(")");
         }
     }
     stateString.append("}");
