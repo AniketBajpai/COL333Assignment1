@@ -55,7 +55,7 @@ double Problem::getStateCost(vector<int> bidNos) {
         double curcost = this->problemData[i][curBidNumber].price;
         totalCost += curcost;
     }
-    return totalCost;
+    return (totalCost - 1000000*getStateConflicts(bidNos));
 }
 
 int Problem::getStateConflicts(vector<int> bidNos) {
@@ -63,10 +63,10 @@ int Problem::getStateConflicts(vector<int> bidNos) {
     int totalConflicts = 0;
     for (int i = 0; i < this->numCompanies; i++) {
         int curBidNumber = bidNos[i];
-        cout<<"Current bid no.: "<<curBidNumber<<endl;
+        // cout<<"Current bid no.: "<<curBidNumber<<endl;
         int *curRegions = this->problemData[i][curBidNumber].region;
         int curRegionsSize = this->problemData[i][curBidNumber].norc;
-        cout<<"Region size: "<<curRegionsSize<<endl;
+        // cout<<"Region size: "<<curRegionsSize<<endl;
         for (int j = 0; j < curRegionsSize; j++) {
             if (conflictArray[curRegions[j]] != 0) {
                 totalConflicts++;
@@ -75,18 +75,17 @@ int Problem::getStateConflicts(vector<int> bidNos) {
                 conflictArray[curRegions[j]] = 1;
             }
         }
-        // totalCost += curcost;
     }
-    cout<<"Conflicts found: "<<totalConflicts<<endl;
+    // cout<<"Conflicts found: "<<totalConflicts<<endl;
     return totalConflicts;
 }
 
 State Problem::getStateFromBidNumbers(vector<int> bidNos) {
-    cout<<"Getting state"<<endl;
+    // cout<<"Getting state"<<endl;
     double totalCost = getStateCost(bidNos);
-    cout<<"Cost: "<<totalCost<<endl;
+    // cout<<"Cost: "<<to_string(totalCost)<<", ";
     int totalConflicts = getStateConflicts(bidNos);
-    cout<<"Conflicts: "<<totalConflicts<<endl;
+    // cout<<"Conflicts: "<<totalConflicts<<endl;
     return State(bidNos, totalCost, totalConflicts);
 }
 
@@ -155,7 +154,7 @@ std::string Problem::getStringFromState(State state) {
             stateString.append("(").append(to_string(i)).append(",").append(" "+to_string(curBidNumber)+": ").append(currString).append(")");
         }
     }
-    stateString.append("}");
+    stateString.append("}").append(to_string(getStateCost(state.getBidNumbers())));
     return stateString;
 }
 
@@ -179,7 +178,7 @@ vector<State> Problem::fringeExpander(vector<State> fringe, int fringeSize, int 
             validStateStore.push(state);
         }
         if (validStateStore.size() > validStoreSize) {
-            validStateStore.pop();
+            // validStateStore.pop();                  //Question: Won't this remove the best states???????
         }
     }
 

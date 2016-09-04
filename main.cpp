@@ -141,7 +141,7 @@ int main()
 		cout<<i<<" : "<<maxBids[i]<<endl;
 	}
 	cout<<"Starting search"<<endl;
-	Search::localGreedySearch(problem, 1);
+	Search::localGreedySearch(problem, 45);
 
 	return 0;
 }

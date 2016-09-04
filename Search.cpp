@@ -20,7 +20,7 @@ void Search::localGreedySearch(Problem* problem, int numTries) {
             GlobalValidStates.push(validStore.top());
             validStore.pop();
             if (GlobalValidStates.size() > maxStoredStates) {
-                GlobalValidStates.pop();
+                // GlobalValidStates.pop();        //Question: Wont this remove the highest element????
             }
         }
     }
@@ -28,7 +28,7 @@ void Search::localGreedySearch(Problem* problem, int numTries) {
     if(GlobalValidStates.size()>0){
         State bestState = GlobalValidStates.top();
         string bestStateString = problem->getStringFromState(bestState);
-        cout<<bestStateString<<endl;
+        cout<<"Best state: "<<bestStateString<<endl;
     }
     else {
         cout<<"No valid states found"<<endl;
@@ -81,7 +81,7 @@ vss Search::generalSearch(Problem *problem, int iterationLimit, int fringeSize, 
         }
 
         cout<<"Iteration: "<<iterationCount<<endl;
-        cout<<"Best state: "<<problem->getStringFromState(newfringe[0])<<endl;
+        // cout<<"Best state: "<<problem->getStringFromState(newfringe[0])<<endl;
 
         bool isComplete;
 
