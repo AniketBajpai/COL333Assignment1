@@ -55,7 +55,7 @@ double Problem::getStateCost(vector<int> bidNos) {
         double curcost = this->problemData[i][curBidNumber].price;
         totalCost += curcost;
     }
-    return (totalCost - 1000000*getStateConflicts(bidNos));
+    return (totalCost);// - 1000000*getStateConflicts(bidNos));
 }
 
 int Problem::getStateConflicts(vector<int> bidNos) {

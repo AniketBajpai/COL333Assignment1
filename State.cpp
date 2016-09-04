@@ -1,7 +1,7 @@
 #include "State.h"
 
 // TODO: Suitably choose W
-double W = 1000;
+double W = 1000000;
 
 State::State(std::vector<int> bidNumbers, double cost, int numConflicts) {
     this->bidNumbers = bidNumbers;
